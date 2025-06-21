@@ -7,8 +7,10 @@ import SellPage from './pages/Sell';
 import ReferralPage from './pages/Referral';
 import AboutPage from './pages/About';
 
+type PageType = 'buy' | 'sell' | 'referral' | 'about';
+
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState('buy');
+  const [currentPage, setCurrentPage] = useState<PageType>('buy');
 
   const renderPage = () => {
     switch (currentPage) {
@@ -25,7 +27,7 @@ const App: React.FC = () => {
     }
   };
 
-  const getPageTitle = () => {
+  const getPageTitle = (): string => {
     switch (currentPage) {
       case 'buy':
         return 'Buy Stars';
@@ -45,7 +47,10 @@ const App: React.FC = () => {
       <Layout title={getPageTitle()}>
         {renderPage()}
       </Layout>
-      <BottomNav currentPage={currentPage} onPageChange={setCurrentPage} />
+      <BottomNav 
+        currentPage={currentPage} 
+        onPageChange={(page: PageType) => setCurrentPage(page)} 
+      />
     </>
   );
 };
